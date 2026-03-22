@@ -1,0 +1,39 @@
+[2026-03-22T18:29:56.629+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_model_training scheduled__2026-02-01T00:00:00+00:00 [queued]>
+[2026-03-22T18:29:56.637+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_model_training scheduled__2026-02-01T00:00:00+00:00 [queued]>
+[2026-03-22T18:29:56.638+0000] {taskinstance.py:2170} INFO - Starting attempt 5 of 5
+[2026-03-22T18:29:56.649+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_model_training> on 2026-02-01 00:00:00+00:00
+[2026-03-22T18:29:56.653+0000] {standard_task_runner.py:60} INFO - Started process 199 to run task
+[2026-03-22T18:29:56.656+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'churn_etl_pipeline', 'run_model_training', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '12', '--raw', '--subdir', 'DAGS_FOLDER/churn_ppipeline.py', '--cfg-path', '/tmp/tmpsno9kw3d']
+[2026-03-22T18:29:56.658+0000] {standard_task_runner.py:88} INFO - Job 12: Subtask run_model_training
+[2026-03-22T18:29:56.892+0000] {task_command.py:423} INFO - Running <TaskInstance: churn_etl_pipeline.run_model_training scheduled__2026-02-01T00:00:00+00:00 [running]> on host 94e8f1905d1d
+[2026-03-22T18:29:56.981+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='churn_pipeline' AIRFLOW_CTX_DAG_ID='churn_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_model_training' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='5' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-03-22T18:29:56.982+0000] {churn_ppipeline.py:140} INFO - =======================================================
+[2026-03-22T18:29:56.983+0000] {churn_ppipeline.py:141} INFO - TASK 3: Running model training
+[2026-03-22T18:29:56.983+0000] {churn_ppipeline.py:142} INFO - =======================================================
+[2026-03-22T18:29:58.545+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 428, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/churn_ppipeline.py", line 144, in run_model_training
+    from models.train_model import run_training
+  File "/opt/airflow/src/models/train_model.py", line 45, in <module>
+    from lightgbm import LGBMClassifier
+  File "/home/airflow/.local/lib/python3.8/site-packages/lightgbm/__init__.py", line 11, in <module>
+    from .basic import Booster, Dataset, Sequence, register_logger
+  File "/home/airflow/.local/lib/python3.8/site-packages/lightgbm/basic.py", line 9, in <module>
+    from .libpath import _LIB  # isort: skip
+  File "/home/airflow/.local/lib/python3.8/site-packages/lightgbm/libpath.py", line 49, in <module>
+    _LIB = ctypes.cdll.LoadLibrary(_find_lib_path()[0])
+  File "/usr/local/lib/python3.8/ctypes/__init__.py", line 451, in LoadLibrary
+    return self._dlltype(name)
+  File "/usr/local/lib/python3.8/ctypes/__init__.py", line 373, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: libgomp.so.1: cannot open shared object file: No such file or directory
+[2026-03-22T18:29:58.569+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=churn_etl_pipeline, task_id=run_model_training, execution_date=20260201T000000, start_date=20260322T182956, end_date=20260322T182958
+[2026-03-22T18:29:58.586+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 12 for task run_model_training (libgomp.so.1: cannot open shared object file: No such file or directory; 199)
+[2026-03-22T18:29:58.637+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-22T18:29:58.662+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

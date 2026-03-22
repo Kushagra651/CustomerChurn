@@ -1,0 +1,29 @@
+[2026-03-22T18:14:00.729+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_model_training scheduled__2026-02-01T00:00:00+00:00 [queued]>
+[2026-03-22T18:14:00.748+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_model_training scheduled__2026-02-01T00:00:00+00:00 [queued]>
+[2026-03-22T18:14:00.750+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-03-22T18:14:00.803+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_model_training> on 2026-02-01 00:00:00+00:00
+[2026-03-22T18:14:00.811+0000] {standard_task_runner.py:60} INFO - Started process 350 to run task
+[2026-03-22T18:14:00.819+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'churn_etl_pipeline', 'run_model_training', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/churn_ppipeline.py', '--cfg-path', '/tmp/tmp4uavewe9']
+[2026-03-22T18:14:00.826+0000] {standard_task_runner.py:88} INFO - Job 5: Subtask run_model_training
+[2026-03-22T18:14:00.958+0000] {task_command.py:423} INFO - Running <TaskInstance: churn_etl_pipeline.run_model_training scheduled__2026-02-01T00:00:00+00:00 [running]> on host be31fec3a0fb
+[2026-03-22T18:14:01.074+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='churn_pipeline' AIRFLOW_CTX_DAG_ID='churn_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_model_training' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-03-22T18:14:01.080+0000] {churn_ppipeline.py:140} INFO - =======================================================
+[2026-03-22T18:14:01.081+0000] {churn_ppipeline.py:141} INFO - TASK 3: Running model training
+[2026-03-22T18:14:01.083+0000] {churn_ppipeline.py:142} INFO - =======================================================
+[2026-03-22T18:14:01.273+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 428, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/churn_ppipeline.py", line 144, in run_model_training
+    from models.train_model import run_training
+  File "/opt/airflow/src/models/train_model.py", line 31, in <module>
+    import joblib
+ModuleNotFoundError: No module named 'joblib'
+[2026-03-22T18:14:01.297+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_etl_pipeline, task_id=run_model_training, execution_date=20260201T000000, start_date=20260322T181400, end_date=20260322T181401
+[2026-03-22T18:14:01.366+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 5 for task run_model_training (No module named 'joblib'; 350)
+[2026-03-22T18:14:01.394+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-22T18:14:01.416+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

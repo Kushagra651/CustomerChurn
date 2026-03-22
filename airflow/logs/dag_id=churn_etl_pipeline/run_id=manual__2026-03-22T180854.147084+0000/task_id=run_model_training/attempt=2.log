@@ -1,0 +1,94 @@
+[2026-03-22T18:39:30.212+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_model_training manual__2026-03-22T18:08:54.147084+00:00 [queued]>
+[2026-03-22T18:39:30.221+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_model_training manual__2026-03-22T18:08:54.147084+00:00 [queued]>
+[2026-03-22T18:39:30.222+0000] {taskinstance.py:2170} INFO - Starting attempt 2 of 2
+[2026-03-22T18:39:30.233+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_model_training> on 2026-03-22 18:08:54.147084+00:00
+[2026-03-22T18:39:30.242+0000] {standard_task_runner.py:60} INFO - Started process 199 to run task
+[2026-03-22T18:39:30.245+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'churn_etl_pipeline', 'run_model_training', 'manual__2026-03-22T18:08:54.147084+00:00', '--job-id', '18', '--raw', '--subdir', 'DAGS_FOLDER/churn_ppipeline.py', '--cfg-path', '/tmp/tmplx6d5848']
+[2026-03-22T18:39:30.249+0000] {standard_task_runner.py:88} INFO - Job 18: Subtask run_model_training
+[2026-03-22T18:39:30.599+0000] {task_command.py:423} INFO - Running <TaskInstance: churn_etl_pipeline.run_model_training manual__2026-03-22T18:08:54.147084+00:00 [running]> on host 5727d6cac4b5
+[2026-03-22T18:39:30.727+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='churn_pipeline' AIRFLOW_CTX_DAG_ID='churn_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_model_training' AIRFLOW_CTX_EXECUTION_DATE='2026-03-22T18:08:54.147084+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-22T18:08:54.147084+00:00'
+[2026-03-22T18:39:30.728+0000] {churn_ppipeline.py:140} INFO - =======================================================
+[2026-03-22T18:39:30.729+0000] {churn_ppipeline.py:141} INFO - TASK 3: Running model training
+[2026-03-22T18:39:30.730+0000] {churn_ppipeline.py:142} INFO - =======================================================
+[2026-03-22T18:39:34.154+0000] {train_model.py:369} INFO - =======================================================
+[2026-03-22T18:39:34.155+0000] {train_model.py:370} INFO - START: Model Training Pipeline
+[2026-03-22T18:39:34.155+0000] {train_model.py:371} INFO - =======================================================
+[2026-03-22T18:39:34.155+0000] {train_model.py:77} INFO - Loading: /opt/***/data/preprocessed/churn_preprocessed.csv
+[2026-03-22T18:39:34.253+0000] {train_model.py:89} INFO - Shape: (7043, 22) | Churn rate: 26.54%
+[2026-03-22T18:39:34.274+0000] {train_model.py:383} INFO - Train: 5634 rows | Test: 1409 rows
+[2026-03-22T18:39:34.277+0000] {train_model.py:384} INFO - Train churn rate: 26.54% | Test: 26.54%
+[2026-03-22T18:39:34.278+0000] {train_model.py:237} INFO - ───────────────────────────────────────────────────────
+[2026-03-22T18:39:34.279+0000] {train_model.py:238} INFO - Tuning: Logistic Regression
+[2026-03-22T18:39:37.471+0000] {train_model.py:256} INFO -   Best params : {'model__C': 10, 'model__penalty': 'l2', 'model__solver': 'lbfgs'}
+[2026-03-22T18:39:37.479+0000] {train_model.py:257} INFO -   CV ROC-AUC  : 0.9909
+[2026-03-22T18:39:39.037+0000] {train_model.py:275} INFO -   Test ROC-AUC: 0.9916 | Accuracy: 0.9375 | F1: 0.8905 | Precision: 0.8326 | Recall: 0.9572
+[2026-03-22T18:39:39.045+0000] {train_model.py:237} INFO - ───────────────────────────────────────────────────────
+[2026-03-22T18:39:39.046+0000] {train_model.py:238} INFO - Tuning: Random Forest
+[2026-03-22T18:40:15.038+0000] {train_model.py:256} INFO -   Best params : {'model__max_depth': None, 'model__min_samples_split': 5, 'model__n_estimators': 100}
+[2026-03-22T18:40:15.039+0000] {train_model.py:257} INFO -   CV ROC-AUC  : 0.9888
+[2026-03-22T18:40:17.628+0000] {train_model.py:275} INFO -   Test ROC-AUC: 0.9892 | Accuracy: 0.9503 | F1: 0.9084 | Precision: 0.8897 | Recall: 0.9278
+[2026-03-22T18:40:17.629+0000] {train_model.py:237} INFO - ───────────────────────────────────────────────────────
+[2026-03-22T18:40:17.630+0000] {train_model.py:238} INFO - Tuning: Gradient Boosting
+[2026-03-22T18:41:05.661+0000] {train_model.py:256} INFO -   Best params : {'model__learning_rate': 0.05, 'model__max_depth': 4, 'model__n_estimators': 100}
+[2026-03-22T18:41:05.662+0000] {train_model.py:257} INFO -   CV ROC-AUC  : 0.9910
+[2026-03-22T18:41:09.424+0000] {train_model.py:275} INFO -   Test ROC-AUC: 0.9912 | Accuracy: 0.9503 | F1: 0.9041 | Precision: 0.9270 | Recall: 0.8824
+[2026-03-22T18:41:09.425+0000] {train_model.py:237} INFO - ───────────────────────────────────────────────────────
+[2026-03-22T18:41:09.426+0000] {train_model.py:238} INFO - Tuning: XGBoost
+[2026-03-22T18:41:39.654+0000] {train_model.py:256} INFO -   Best params : {'model__learning_rate': 0.05, 'model__max_depth': 3, 'model__n_estimators': 200, 'model__subsample': 0.8}
+[2026-03-22T18:41:39.656+0000] {train_model.py:257} INFO -   CV ROC-AUC  : 0.9915
+[2026-03-22T18:41:41.741+0000] {train_model.py:275} INFO -   Test ROC-AUC: 0.9913 | Accuracy: 0.9368 | F1: 0.8897 | Precision: 0.8291 | Recall: 0.9599
+[2026-03-22T18:41:41.742+0000] {train_model.py:237} INFO - ───────────────────────────────────────────────────────
+[2026-03-22T18:41:41.742+0000] {train_model.py:238} INFO - Tuning: KNN
+[2026-03-22T18:41:44.283+0000] {train_model.py:256} INFO -   Best params : {'model__metric': 'euclidean', 'model__n_neighbors': 11, 'model__weights': 'distance'}
+[2026-03-22T18:41:44.284+0000] {train_model.py:257} INFO -   CV ROC-AUC  : 0.9525
+[2026-03-22T18:41:44.495+0000] {train_model.py:275} INFO -   Test ROC-AUC: 0.9534 | Accuracy: 0.8999 | F1: 0.8066 | Precision: 0.8282 | Recall: 0.7861
+[2026-03-22T18:41:44.498+0000] {train_model.py:237} INFO - ───────────────────────────────────────────────────────
+[2026-03-22T18:41:44.498+0000] {train_model.py:238} INFO - Tuning: LightGBM
+[2026-03-22T18:41:49.709+0000] {train_model.py:256} INFO -   Best params : {'model__learning_rate': 0.05, 'model__max_depth': 6, 'model__n_estimators': 100, 'model__num_leaves': 31}
+[2026-03-22T18:41:49.710+0000] {train_model.py:257} INFO -   CV ROC-AUC  : 0.9911
+[2026-03-22T18:41:49.966+0000] {train_model.py:275} INFO -   Test ROC-AUC: 0.9908 | Accuracy: 0.9375 | F1: 0.8908 | Precision: 0.8310 | Recall: 0.9599
+[2026-03-22T18:41:49.968+0000] {train_model.py:237} INFO - ───────────────────────────────────────────────────────
+[2026-03-22T18:41:49.968+0000] {train_model.py:238} INFO - Tuning: SVM
+[2026-03-22T18:42:37.248+0000] {train_model.py:256} INFO -   Best params : {'model__C': 10, 'model__gamma': 'scale', 'model__kernel': 'linear'}
+[2026-03-22T18:42:37.249+0000] {train_model.py:257} INFO -   CV ROC-AUC  : 0.9905
+[2026-03-22T18:42:42.752+0000] {train_model.py:275} INFO -   Test ROC-AUC: 0.9912 | Accuracy: 0.9326 | F1: 0.8837 | Precision: 0.8149 | Recall: 0.9652
+[2026-03-22T18:42:42.775+0000] {train_model.py:392} INFO - 
+Model Comparison (sorted by ROC-AUC):
+[2026-03-22T18:42:42.786+0000] {train_model.py:393} INFO - 
+              Model  ROC-AUC  Accuracy  F1 Score  CV ROC-AUC Mean  CV ROC-AUC Std
+Logistic Regression   0.9916    0.9375    0.8905           0.9909          0.0012
+            XGBoost   0.9913    0.9368    0.8897           0.9915          0.0013
+  Gradient Boosting   0.9912    0.9503    0.9041           0.9910          0.0014
+                SVM   0.9912    0.9326    0.8837           0.9905          0.0012
+           LightGBM   0.9908    0.9375    0.8908           0.9911          0.0012
+      Random Forest   0.9892    0.9503    0.9084           0.9888          0.0026
+                KNN   0.9534    0.8999    0.8066           0.9525          0.0062
+[2026-03-22T18:42:42.823+0000] {train_model.py:330} INFO - Saved comparison → /opt/***/models/model_comparison.csv
+[2026-03-22T18:42:42.854+0000] {train_model.py:337} INFO - Saved best model (Logistic Regression) → /opt/***/models/churn_model.pkl
+[2026-03-22T18:42:42.867+0000] {train_model.py:356} INFO - Saved model info → /opt/***/models/best_model_info.json
+[2026-03-22T18:42:42.888+0000] {train_model.py:312} INFO - 
+=======================================================
+[2026-03-22T18:42:42.888+0000] {train_model.py:313} INFO - BEST MODEL  : Logistic Regression
+[2026-03-22T18:42:42.891+0000] {train_model.py:314} INFO - ROC-AUC     : 0.9916
+[2026-03-22T18:42:42.893+0000] {train_model.py:315} INFO - Accuracy    : 0.9375
+[2026-03-22T18:42:42.904+0000] {train_model.py:316} INFO - 
+Classification Report:
+              precision    recall  f1-score   support
+
+ Not Churned       0.98      0.93      0.96      1035
+     Churned       0.83      0.96      0.89       374
+
+    accuracy                           0.94      1409
+   macro avg       0.91      0.94      0.92      1409
+weighted avg       0.94      0.94      0.94      1409
+
+[2026-03-22T18:42:42.905+0000] {train_model.py:318} INFO - =======================================================
+
+[2026-03-22T18:42:42.905+0000] {train_model.py:403} INFO - =======================================================
+[2026-03-22T18:42:42.906+0000] {train_model.py:404} INFO - DONE: Best model = Logistic Regression
+[2026-03-22T18:42:42.906+0000] {train_model.py:405} INFO - =======================================================
+[2026-03-22T18:42:43.022+0000] {churn_ppipeline.py:159} INFO - Best model: Logistic Regression | ROC-AUC: 0.9916
+[2026-03-22T18:42:43.023+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-03-22T18:42:43.039+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=churn_etl_pipeline, task_id=run_model_training, execution_date=20260322T180854, start_date=20260322T183930, end_date=20260322T184243
+[2026-03-22T18:42:43.099+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-22T18:42:43.128+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

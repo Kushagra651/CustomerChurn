@@ -1,0 +1,48 @@
+[2026-03-22T18:47:41.673+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_model_evaluation manual__2026-03-22T18:32:35.858804+00:00 [queued]>
+[2026-03-22T18:47:41.682+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_model_evaluation manual__2026-03-22T18:32:35.858804+00:00 [queued]>
+[2026-03-22T18:47:41.683+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-03-22T18:47:41.695+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_model_evaluation> on 2026-03-22 18:32:35.858804+00:00
+[2026-03-22T18:47:41.699+0000] {standard_task_runner.py:60} INFO - Started process 2428 to run task
+[2026-03-22T18:47:41.702+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'churn_etl_pipeline', 'run_model_evaluation', 'manual__2026-03-22T18:32:35.858804+00:00', '--job-id', '24', '--raw', '--subdir', 'DAGS_FOLDER/churn_ppipeline.py', '--cfg-path', '/tmp/tmp7qo3q5b3']
+[2026-03-22T18:47:41.704+0000] {standard_task_runner.py:88} INFO - Job 24: Subtask run_model_evaluation
+[2026-03-22T18:47:41.803+0000] {task_command.py:423} INFO - Running <TaskInstance: churn_etl_pipeline.run_model_evaluation manual__2026-03-22T18:32:35.858804+00:00 [running]> on host 5727d6cac4b5
+[2026-03-22T18:47:41.918+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='churn_pipeline' AIRFLOW_CTX_DAG_ID='churn_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_model_evaluation' AIRFLOW_CTX_EXECUTION_DATE='2026-03-22T18:32:35.858804+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-22T18:32:35.858804+00:00'
+[2026-03-22T18:47:41.920+0000] {churn_ppipeline.py:174} INFO - =======================================================
+[2026-03-22T18:47:41.921+0000] {churn_ppipeline.py:175} INFO - TASK 4: Running model evaluation
+[2026-03-22T18:47:41.921+0000] {churn_ppipeline.py:176} INFO - =======================================================
+[2026-03-22T18:47:44.298+0000] {evaluate_model.py:297} INFO - =======================================================
+[2026-03-22T18:47:44.299+0000] {evaluate_model.py:298} INFO - START: Model Evaluation
+[2026-03-22T18:47:44.300+0000] {evaluate_model.py:299} INFO - =======================================================
+[2026-03-22T18:47:44.359+0000] {evaluate_model.py:91} INFO - Test set: 1409 rows
+[2026-03-22T18:47:44.428+0000] {evaluate_model.py:97} INFO - Loaded model from /opt/***/models/churn_model.pkl
+[2026-03-22T18:47:44.433+0000] {evaluate_model.py:102} INFO - Best model: Logistic Regression
+[2026-03-22T18:47:44.434+0000] {evaluate_model.py:308} INFO - Generating model comparison chart...
+[2026-03-22T18:47:44.897+0000] {evaluate_model.py:156} INFO - Saved → /opt/***/models/evaluation/model_comparison.png
+[2026-03-22T18:47:44.898+0000] {evaluate_model.py:312} INFO - Generating precision-recall curve...
+[2026-03-22T18:47:45.394+0000] {evaluate_model.py:228} INFO - Saved → /opt/***/models/evaluation/precision_recall.png
+[2026-03-22T18:47:45.444+0000] {evaluate_model.py:273} INFO - Saved → /opt/***/models/evaluation/evaluation_report.json
+[2026-03-22T18:47:45.446+0000] {evaluate_model.py:276} INFO - 
+=======================================================
+[2026-03-22T18:47:45.447+0000] {evaluate_model.py:277} INFO - EVALUATION SUMMARY — Logistic Regression
+[2026-03-22T18:47:45.447+0000] {evaluate_model.py:278} INFO - =======================================================
+[2026-03-22T18:47:45.448+0000] {evaluate_model.py:279} INFO -   ROC-AUC   : 0.9916
+[2026-03-22T18:47:45.448+0000] {evaluate_model.py:280} INFO -   Accuracy  : 0.9375
+[2026-03-22T18:47:45.449+0000] {evaluate_model.py:281} INFO -   F1 Score  : 0.8905
+[2026-03-22T18:47:45.450+0000] {evaluate_model.py:282} INFO -   Precision : 0.8326
+[2026-03-22T18:47:45.457+0000] {evaluate_model.py:283} INFO -   Recall    : 0.9572
+[2026-03-22T18:47:45.458+0000] {evaluate_model.py:284} INFO -   Avg Prec  : 0.9791
+[2026-03-22T18:47:45.460+0000] {evaluate_model.py:285} INFO -   Best Thresh: 0.7448
+[2026-03-22T18:47:45.461+0000] {evaluate_model.py:286} INFO - 
+  Confusion Matrix:
+[2026-03-22T18:47:45.462+0000] {evaluate_model.py:287} INFO -     TN=963  FP=72
+[2026-03-22T18:47:45.463+0000] {evaluate_model.py:288} INFO -     FN=16  TP=358
+[2026-03-22T18:47:45.464+0000] {evaluate_model.py:289} INFO - =======================================================
+[2026-03-22T18:47:45.465+0000] {evaluate_model.py:323} INFO - =======================================================
+[2026-03-22T18:47:45.466+0000] {evaluate_model.py:324} INFO - DONE: Evaluation Complete
+[2026-03-22T18:47:45.469+0000] {evaluate_model.py:325} INFO - Outputs saved to /opt/***/models/evaluation
+[2026-03-22T18:47:45.470+0000] {evaluate_model.py:326} INFO - =======================================================
+[2026-03-22T18:47:45.508+0000] {churn_ppipeline.py:182} INFO - Evaluation complete. Plots and report saved.
+[2026-03-22T18:47:45.509+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-03-22T18:47:45.520+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=churn_etl_pipeline, task_id=run_model_evaluation, execution_date=20260322T183235, start_date=20260322T184741, end_date=20260322T184745
+[2026-03-22T18:47:45.574+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-22T18:47:45.606+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

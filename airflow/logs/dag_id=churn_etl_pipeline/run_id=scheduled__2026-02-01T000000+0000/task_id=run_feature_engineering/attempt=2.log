@@ -1,0 +1,35 @@
+[2026-03-22T18:14:13.980+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_feature_engineering scheduled__2026-02-01T00:00:00+00:00 [queued]>
+[2026-03-22T18:14:13.990+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_etl_pipeline.run_feature_engineering scheduled__2026-02-01T00:00:00+00:00 [queued]>
+[2026-03-22T18:14:13.992+0000] {taskinstance.py:2170} INFO - Starting attempt 2 of 3
+[2026-03-22T18:14:14.007+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): run_feature_engineering> on 2026-02-01 00:00:00+00:00
+[2026-03-22T18:14:14.011+0000] {standard_task_runner.py:60} INFO - Started process 359 to run task
+[2026-03-22T18:14:14.014+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'churn_etl_pipeline', 'run_feature_engineering', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/churn_ppipeline.py', '--cfg-path', '/tmp/tmpvkfcikmd']
+[2026-03-22T18:14:14.018+0000] {standard_task_runner.py:88} INFO - Job 7: Subtask run_feature_engineering
+[2026-03-22T18:14:14.097+0000] {task_command.py:423} INFO - Running <TaskInstance: churn_etl_pipeline.run_feature_engineering scheduled__2026-02-01T00:00:00+00:00 [running]> on host be31fec3a0fb
+[2026-03-22T18:14:14.190+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='churn_pipeline' AIRFLOW_CTX_DAG_ID='churn_etl_pipeline' AIRFLOW_CTX_TASK_ID='run_feature_engineering' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-03-22T18:14:14.194+0000] {churn_ppipeline.py:117} INFO - =======================================================
+[2026-03-22T18:14:14.196+0000] {churn_ppipeline.py:118} INFO - TASK 2: Running feature engineering
+[2026-03-22T18:14:14.197+0000] {churn_ppipeline.py:119} INFO - =======================================================
+[2026-03-22T18:14:14.699+0000] {feature_engineering.py:276} INFO - =======================================================
+[2026-03-22T18:14:14.699+0000] {feature_engineering.py:277} INFO - START: Feature Engineering Pipeline
+[2026-03-22T18:14:14.700+0000] {feature_engineering.py:278} INFO - =======================================================
+[2026-03-22T18:14:15.067+0000] {feature_engineering.py:77} INFO - Loaded 7043 rows from MySQL.
+[2026-03-22T18:14:15.069+0000] {feature_engineering.py:282} INFO - Raw shape: (7043, 28)
+[2026-03-22T18:14:15.072+0000] {feature_engineering.py:110} INFO - Dropped 7 columns.
+[2026-03-22T18:14:15.085+0000] {feature_engineering.py:288} INFO - After cleaning shape: (7043, 21)
+[2026-03-22T18:14:15.094+0000] {feature_engineering.py:179} INFO - Engineered: average_charges
+[2026-03-22T18:14:15.100+0000] {feature_engineering.py:184} INFO - Engineered: high_value_customer (threshold=89.85)
+[2026-03-22T18:14:15.138+0000] {feature_engineering.py:236} INFO - Encoded binary columns: ['Partner', 'Dependents', 'Phone Service', 'Paperless Billing', 'Online Security', 'Online Backup', 'Device Protection', 'Tech Support', 'Streaming Tv', 'Streaming Movies']
+[2026-03-22T18:14:15.139+0000] {feature_engineering.py:237} INFO - Encoded categorical columns: ['Contract', 'Internet Service', 'Payment Method', 'Multiple Lines']
+[2026-03-22T18:14:15.142+0000] {feature_engineering.py:295} INFO - Final shape: (7043, 23)
+[2026-03-22T18:14:15.145+0000] {feature_engineering.py:302} INFO - Null check passed — no missing values.
+[2026-03-22T18:14:15.234+0000] {feature_engineering.py:252} INFO - Saved preprocessed data → /opt/***/data/preprocessed/churn_preprocessed.csv
+[2026-03-22T18:14:15.259+0000] {feature_engineering.py:268} INFO - Saved feature metadata → /opt/***/data/preprocessed/feature_columns.json
+[2026-03-22T18:14:15.262+0000] {feature_engineering.py:307} INFO - =======================================================
+[2026-03-22T18:14:15.267+0000] {feature_engineering.py:308} INFO - DONE: Feature Engineering Pipeline
+[2026-03-22T18:14:15.270+0000] {feature_engineering.py:309} INFO - =======================================================
+[2026-03-22T18:14:15.272+0000] {churn_ppipeline.py:124} INFO - Feature engineering complete.
+[2026-03-22T18:14:15.305+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-03-22T18:14:15.320+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=churn_etl_pipeline, task_id=run_feature_engineering, execution_date=20260201T000000, start_date=20260322T181413, end_date=20260322T181415
+[2026-03-22T18:14:15.355+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-22T18:14:15.386+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

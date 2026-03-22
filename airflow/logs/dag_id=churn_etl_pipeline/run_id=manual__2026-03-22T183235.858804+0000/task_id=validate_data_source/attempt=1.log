@@ -1,0 +1,20 @@
+[2026-03-22T18:42:52.433+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_etl_pipeline.validate_data_source manual__2026-03-22T18:32:35.858804+00:00 [queued]>
+[2026-03-22T18:42:52.441+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_etl_pipeline.validate_data_source manual__2026-03-22T18:32:35.858804+00:00 [queued]>
+[2026-03-22T18:42:52.442+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-03-22T18:42:52.453+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): validate_data_source> on 2026-03-22 18:32:35.858804+00:00
+[2026-03-22T18:42:52.457+0000] {standard_task_runner.py:60} INFO - Started process 1318 to run task
+[2026-03-22T18:42:52.459+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'churn_etl_pipeline', 'validate_data_source', 'manual__2026-03-22T18:32:35.858804+00:00', '--job-id', '21', '--raw', '--subdir', 'DAGS_FOLDER/churn_ppipeline.py', '--cfg-path', '/tmp/tmpryzgx0tp']
+[2026-03-22T18:42:52.461+0000] {standard_task_runner.py:88} INFO - Job 21: Subtask validate_data_source
+[2026-03-22T18:42:52.534+0000] {task_command.py:423} INFO - Running <TaskInstance: churn_etl_pipeline.validate_data_source manual__2026-03-22T18:32:35.858804+00:00 [running]> on host 5727d6cac4b5
+[2026-03-22T18:42:52.626+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='churn_pipeline' AIRFLOW_CTX_DAG_ID='churn_etl_pipeline' AIRFLOW_CTX_TASK_ID='validate_data_source' AIRFLOW_CTX_EXECUTION_DATE='2026-03-22T18:32:35.858804+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-22T18:32:35.858804+00:00'
+[2026-03-22T18:42:52.627+0000] {churn_ppipeline.py:63} INFO - =======================================================
+[2026-03-22T18:42:52.627+0000] {churn_ppipeline.py:64} INFO - TASK 1: Validating data source
+[2026-03-22T18:42:52.628+0000] {churn_ppipeline.py:65} INFO - =======================================================
+[2026-03-22T18:42:52.889+0000] {churn_ppipeline.py:89} INFO -   customers: 7043 rows
+[2026-03-22T18:42:52.903+0000] {churn_ppipeline.py:89} INFO -   payments: 7043 rows
+[2026-03-22T18:42:52.920+0000] {churn_ppipeline.py:89} INFO -   support_tickets: 16070 rows
+[2026-03-22T18:42:52.921+0000] {churn_ppipeline.py:97} INFO - Data source validation passed.
+[2026-03-22T18:42:52.951+0000] {python.py:201} INFO - Done. Returned value was: None
+[2026-03-22T18:42:52.962+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=churn_etl_pipeline, task_id=validate_data_source, execution_date=20260322T183235, start_date=20260322T184252, end_date=20260322T184252
+[2026-03-22T18:42:52.994+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-22T18:42:53.029+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

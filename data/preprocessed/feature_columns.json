@@ -1,0 +1,62 @@
+{
+  "feature_columns": [
+    "Gender",
+    "Senior Citizen",
+    "Partner",
+    "Dependents",
+    "Tenure Months",
+    "Phone Service",
+    "Multiple Lines",
+    "Internet Service",
+    "Online Security",
+    "Online Backup",
+    "Device Protection",
+    "Tech Support",
+    "Streaming Tv",
+    "Streaming Movies",
+    "Contract",
+    "Monthly Charges",
+    "Total Charges",
+    "Payment Method",
+    "Paperless Billing",
+    "Support Ticket Count",
+    "average_charges",
+    "high_value_customer"
+  ],
+  "target_column": "Churn Value",
+  "encoding_map": {
+    "Contract": {
+      "0": "Month-to-month",
+      "1": "One year",
+      "2": "Two year"
+    },
+    "Internet Service": {
+      "0": "DSL",
+      "1": "Fiber optic",
+      "2": "No"
+    },
+    "Payment Method": {
+      "0": "Bank transfer (automatic)",
+      "1": "Credit card (automatic)",
+      "2": "Electronic check",
+      "3": "Mailed check"
+    },
+    "Multiple Lines": {
+      "0": "No",
+      "1": "No phone service",
+      "2": "Yes"
+    }
+  },
+  "numerical_cols": [
+    "Tenure Months",
+    "Monthly Charges",
+    "Total Charges",
+    "average_charges"
+  ],
+  "engineered_cols": [
+    "average_charges",
+    "high_value_customer"
+  ],
+  "n_rows": 7043,
+  "n_features": 22
+}

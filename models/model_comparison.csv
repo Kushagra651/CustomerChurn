@@ -1,0 +1,8 @@
+Model,ROC-AUC,Accuracy,F1 Score,Precision,Recall,CV ROC-AUC Mean,CV ROC-AUC Std,Best Params
+Logistic Regression,0.9916,0.9375,0.8905,0.8326,0.9572,0.9909,0.0012,"{'model__C': 10, 'model__penalty': 'l2', 'model__solver': 'lbfgs'}"
+XGBoost,0.9913,0.9368,0.8897,0.8291,0.9599,0.9915,0.0013,"{'model__learning_rate': 0.05, 'model__max_depth': 3, 'model__n_estimators': 200, 'model__subsample': 0.8}"
+Gradient Boosting,0.9912,0.9503,0.9041,0.927,0.8824,0.991,0.0014,"{'model__learning_rate': 0.05, 'model__max_depth': 4, 'model__n_estimators': 100}"
+SVM,0.9912,0.9326,0.8837,0.8149,0.9652,0.9905,0.0012,"{'model__C': 10, 'model__gamma': 'scale', 'model__kernel': 'linear'}"
+LightGBM,0.9908,0.9375,0.8908,0.831,0.9599,0.9911,0.0012,"{'model__learning_rate': 0.05, 'model__max_depth': 6, 'model__n_estimators': 100, 'model__num_leaves': 31}"
+Random Forest,0.9892,0.9503,0.9084,0.8897,0.9278,0.9888,0.0026,"{'model__max_depth': None, 'model__min_samples_split': 5, 'model__n_estimators': 100}"
+KNN,0.9534,0.8999,0.8066,0.8282,0.7861,0.9525,0.0062,"{'model__metric': 'euclidean', 'model__n_neighbors': 11, 'model__weights': 'distance'}"

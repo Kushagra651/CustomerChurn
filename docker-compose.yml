@@ -1,0 +1,176 @@
+version: "3.8"
+ 
+x-airflow-common: &airflow-common
+  # image: apache/airflow:2.8.1
+  build:
+    context: .
+    dockerfile: ./airflow/Dockerfile
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+    # MySQL churn DB connection available inside Airflow
+    CHURN_DB_HOST: mysql
+    CHURN_DB_PORT: 3306
+    CHURN_DB_NAME: pulsedirects
+    CHURN_DB_USER: root
+    CHURN_DB_PASSWORD: root
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./airflow/logs:/opt/airflow/logs
+    - ./airflow/plugins:/opt/airflow/plugins
+    - ./data:/opt/airflow/data
+    - ./src:/opt/airflow/src
+    - ./models:/opt/airflow/models
+  depends_on:
+    postgres:
+      condition: service_healthy
+    mysql:
+      condition: service_healthy
+  networks:
+    - churn_network
+ 
+services:
+ 
+  # ─── MySQL — Churn operational DB ───────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_churn
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pulsedirects
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - churn_network
+ 
+  # ─── Postgres — Airflow metadata DB ─────────────────────────────────────────
+  postgres:
+    image: postgres:15
+    container_name: postgres_airflow
+    restart: always
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - churn_network
+ 
+  # ─── Airflow — DB init (runs once) ──────────────────────────────────────────
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow_init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate &&
+        airflow users create \
+          --username admin \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com \
+          --password admin
+    restart: on-failure
+ 
+  # ─── Airflow — Scheduler ─────────────────────────────────────────────────────
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: airflow_scheduler
+    command: scheduler
+    restart: always
+ 
+  # ─── Airflow — Webserver ─────────────────────────────────────────────────────
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: airflow_webserver
+    command: webserver
+    ports:
+      - "8080:8080"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+ 
+  # # ─── FastAPI — Churn prediction API ─────────────────────────────────────────
+  fastapi:
+    build:
+      context: .
+      dockerfile: ./src/api/Dockerfile
+    container_name: fastapi_churn
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./src:/app/src
+    environment:
+      CHURN_DB_HOST: mysql
+      CHURN_DB_PORT: 3306
+      CHURN_DB_NAME: pulsedirects
+      CHURN_DB_USER: root
+      CHURN_DB_PASSWORD: root
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - churn_network
+ 
+  # # ─── Streamlit — Dashboard ───────────────────────────────────────────────────
+  streamlit:
+    build:
+      context: .
+      dockerfile: ./dashboard/Dockerfile
+    container_name: streamlit_churn
+    restart: always
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./src:/app/src
+    environment:
+      FASTAPI_URL: http://fastapi:8000
+      CHURN_DB_HOST: mysql
+      CHURN_DB_PORT: 3306
+      CHURN_DB_NAME: pulsedirects
+      CHURN_DB_USER: root
+      CHURN_DB_PASSWORD: root
+    depends_on:
+      - fastapi
+    networks:
+      - churn_network
+ 
+# ─── Volumes ──────────────────────────────────────────────────────────────────
+volumes:
+  mysql_data:
+  postgres_data:
+ 
+# ─── Network ──────────────────────────────────────────────────────────────────
+networks:
+  churn_network:
+    driver: bridge

@@ -1,0 +1,48 @@
+{
+  "best_model": "Logistic Regression",
+  "test_set_size": 1409,
+  "churn_rate": 0.2654,
+  "roc_auc": 0.9916,
+  "accuracy": 0.9375,
+  "f1_score": 0.8905,
+  "precision": 0.8326,
+  "recall": 0.9572,
+  "avg_precision": 0.9791,
+  "best_threshold": 0.7448,
+  "best_f1_threshold": 0.9096,
+  "cv_roc_auc_mean": 0.9909,
+  "cv_roc_auc_std": 0.0012,
+  "confusion_matrix": {
+    "true_negative": 963,
+    "false_positive": 72,
+    "false_negative": 16,
+    "true_positive": 358
+  },
+  "classification_report": {
+    "Not Churned": {
+      "precision": 0.9836567926455567,
+      "recall": 0.9304347826086956,
+      "f1-score": 0.9563058589870904,
+      "support": 1035.0
+    },
+    "Churned": {
+      "precision": 0.8325581395348837,
+      "recall": 0.9572192513368984,
+      "f1-score": 0.8905472636815921,
+      "support": 374.0
+    },
+    "accuracy": 0.9375443577004968,
+    "macro avg": {
+      "precision": 0.9081074660902202,
+      "recall": 0.943827016972797,
+      "f1-score": 0.9234265613343413,
+      "support": 1409.0
+    },
+    "weighted avg": {
+      "precision": 0.9435496980654349,
+      "recall": 0.9375443577004968,
+      "f1-score": 0.9388511289343889,
+      "support": 1409.0
+    }
+  }
+}

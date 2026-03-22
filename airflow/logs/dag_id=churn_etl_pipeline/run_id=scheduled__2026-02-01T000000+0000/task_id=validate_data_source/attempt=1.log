@@ -1,0 +1,34 @@
+[2026-03-22T18:08:52.781+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_etl_pipeline.validate_data_source scheduled__2026-02-01T00:00:00+00:00 [queued]>
+[2026-03-22T18:08:52.790+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_etl_pipeline.validate_data_source scheduled__2026-02-01T00:00:00+00:00 [queued]>
+[2026-03-22T18:08:52.791+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-03-22T18:08:52.803+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): validate_data_source> on 2026-02-01 00:00:00+00:00
+[2026-03-22T18:08:52.807+0000] {standard_task_runner.py:60} INFO - Started process 263 to run task
+[2026-03-22T18:08:52.812+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'churn_etl_pipeline', 'validate_data_source', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '2', '--raw', '--subdir', 'DAGS_FOLDER/churn_ppipeline.py', '--cfg-path', '/tmp/tmp7rejrayd']
+[2026-03-22T18:08:52.814+0000] {standard_task_runner.py:88} INFO - Job 2: Subtask validate_data_source
+[2026-03-22T18:08:52.952+0000] {task_command.py:423} INFO - Running <TaskInstance: churn_etl_pipeline.validate_data_source scheduled__2026-02-01T00:00:00+00:00 [running]> on host be31fec3a0fb
+[2026-03-22T18:08:53.068+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='churn_pipeline' AIRFLOW_CTX_DAG_ID='churn_etl_pipeline' AIRFLOW_CTX_TASK_ID='validate_data_source' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-03-22T18:08:53.070+0000] {churn_ppipeline.py:63} INFO - =======================================================
+[2026-03-22T18:08:53.071+0000] {churn_ppipeline.py:64} INFO - TASK 1: Validating data source
+[2026-03-22T18:08:53.071+0000] {churn_ppipeline.py:65} INFO - =======================================================
+[2026-03-22T18:08:53.077+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/churn_ppipeline.py", line 73, in validate_data_source
+    engine = sqlalchemy.create_engine(
+  File "<string>", line 2, in create_engine
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/deprecations.py", line 375, in warned
+    return fn(*args, **kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 544, in create_engine
+    dbapi = dialect_cls.dbapi(**dbapi_args)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/dialects/mysql/pymysql.py", line 80, in dbapi
+    return __import__("pymysql")
+ModuleNotFoundError: No module named 'pymysql'
+[2026-03-22T18:08:53.097+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_etl_pipeline, task_id=validate_data_source, execution_date=20260201T000000, start_date=20260322T180852, end_date=20260322T180853
+[2026-03-22T18:08:53.113+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 2 for task validate_data_source (No module named 'pymysql'; 263)
+[2026-03-22T18:08:53.147+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-22T18:08:53.181+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
