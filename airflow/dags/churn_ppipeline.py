@@ -47,10 +47,6 @@ dag = DAG(
 )
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# TASK 1 — VALIDATE DATA SOURCE
-# ═════════════════════════════════════════════════════════════════════════════
-
 def validate_data_source(**context):
     """
     Checks MySQL connection and validates minimum row counts
@@ -101,10 +97,6 @@ def validate_data_source(**context):
     context['ti'].xcom_push(key='run_date', value=str(datetime.now().date()))
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# TASK 2 — FEATURE ENGINEERING
-# ═════════════════════════════════════════════════════════════════════════════
-
 def run_feature_engineering(**context):
     """
     Imports and runs the feature engineering pipeline.
@@ -123,11 +115,6 @@ def run_feature_engineering(**context):
 
     log.info("Feature engineering complete.")
     context['ti'].xcom_push(key='feature_engineering_status', value='success')
-
-
-# ═════════════════════════════════════════════════════════════════════════════
-# TASK 3 — MODEL TRAINING
-# ═════════════════════════════════════════════════════════════════════════════
 
 def run_model_training(**context):
     """
@@ -159,10 +146,6 @@ def run_model_training(**context):
         log.info(f"Best model: {info['best_model']} | ROC-AUC: {info['roc_auc']}")
 
 
-# ═════════════════════════════════════════════════════════════════════════════
-# TASK 4 — MODEL EVALUATION
-# ═════════════════════════════════════════════════════════════════════════════
-
 def run_model_evaluation(**context):
     """
     Imports and runs model evaluation.
@@ -181,10 +164,6 @@ def run_model_evaluation(**context):
     context['ti'].xcom_push(key='evaluation_status', value='success')
     log.info("Evaluation complete. Plots and report saved.")
 
-
-# ═════════════════════════════════════════════════════════════════════════════
-# TASK 5 — LOG PIPELINE SUMMARY
-# ═════════════════════════════════════════════════════════════════════════════
 
 def log_pipeline_summary(**context):
     """
@@ -223,10 +202,6 @@ def log_pipeline_summary(**context):
     else:
         log.warning("MONTHLY RUN STATUS: PARTIAL FAILURE — check individual task logs")
 
-
-# ═════════════════════════════════════════════════════════════════════════════
-# TASK DEFINITIONS
-# ═════════════════════════════════════════════════════════════════════════════
 
 with dag:
 
